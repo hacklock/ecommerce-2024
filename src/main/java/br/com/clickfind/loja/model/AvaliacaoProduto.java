@@ -1,9 +1,10 @@
 package br.com.clickfind.loja.model;
 
 import java.io.Serializable;
-import jakarta.persistence.Column;
+
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,28 +12,30 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.ForeignKey;
+
 
 @Entity
-@Table(name = "nota_item_produto")
-@SequenceGenerator(name = "seq_nota_item_produto", sequenceName = "seq_nota_item_produto", allocationSize = 1, initialValue = 1)
-public class NotaItemProduto implements Serializable {
+@Table(name = "avaliacao_produto")
+@SequenceGenerator(name = "seq_avaliacao_produto", sequenceName = "seq_avaliacao_produto", allocationSize = 1, initialValue = 1)
+public class AvaliacaoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_item_produto")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_avaliacao_produto")
 	private Long id;
-
-	@Column(nullable = false)
-	private Double quantidade;
-
+	
+	
+	private Integer nota;
+	
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = 
+	@ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+	private Pessoa pessoa;
+	
 	@ManyToOne
-	@JoinColumn(name = "nota_fiscal_compra_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk"))
-	private NotaFiscalCompra notaFiscalCompra;
-
-	@ManyToOne
-	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
+	@JoinColumn(name = "produto_id", nullable = false, foreignKey = 
+	@ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
 	private Produto produto;
 
 	public Long getId() {
@@ -43,20 +46,20 @@ public class NotaItemProduto implements Serializable {
 		this.id = id;
 	}
 
-	public Double getQuantidade() {
-		return quantidade;
+	public Integer getNota() {
+		return nota;
 	}
 
-	public void setQuantidade(Double quantidade) {
-		this.quantidade = quantidade;
+	public void setNota(Integer nota) {
+		this.nota = nota;
 	}
 
-	public NotaFiscalCompra getNotaFiscalCompra() {
-		return notaFiscalCompra;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setNotaFiscalCompra(NotaFiscalCompra notaFiscalCompra) {
-		this.notaFiscalCompra = notaFiscalCompra;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Produto getProduto() {
@@ -83,7 +86,7 @@ public class NotaItemProduto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NotaItemProduto other = (NotaItemProduto) obj;
+		AvaliacaoProduto other = (AvaliacaoProduto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -91,5 +94,8 @@ public class NotaItemProduto implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
+	
 
 }

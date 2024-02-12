@@ -2,7 +2,6 @@ package br.com.clickfind.loja.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,7 +53,6 @@ public class Produto implements Serializable {
 
 	private Integer qtdeClique = 0;
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -192,7 +190,12 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
