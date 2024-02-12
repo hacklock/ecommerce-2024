@@ -1,5 +1,6 @@
 package br.com.clickfind.loja.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -11,11 +12,20 @@ public class PessoaJuridica extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(nullable = false)
 	private String cnpj;
+	
+	@Column(nullable = false)
 	private String inscEstadual;
+	
 	private String inscMunicipal;
+	
+	@Column(nullable = false)
 	private String nomeFantasia;
-	private String razapSocial;
+	
+	@Column(nullable = false)
+	private String razaoSocial;
+	
 	private String categoria;
 
 	public String getCnpj() {
@@ -50,12 +60,12 @@ public class PessoaJuridica extends Pessoa {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	public String getRazapSocial() {
-		return razapSocial;
+	public String getRazaoSocial() {
+		return razaoSocial;
 	}
 
-	public void setRazapSocial(String razapSocial) {
-		this.razapSocial = razapSocial;
+	public void setRazapSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 
 	public String getCategoria() {
